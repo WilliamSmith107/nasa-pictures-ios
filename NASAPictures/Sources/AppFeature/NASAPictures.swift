@@ -7,9 +7,10 @@
 
 import ComposableArchitecture
 import Foundation
+import APODClientLive
 
 @Reducer
-public struct NASAPictures {
+public struct NASAPictures: Sendable {
 	@ObservableState
 	public struct State: Equatable {
 		public init() {}
@@ -19,13 +20,17 @@ public struct NASAPictures {
 		case initialise
 	}
 
+	@Dependency(\.apodClient) var apodClient
+
 	public init() {}
 
 	public var body: some ReducerOf<Self> {
 		Reduce { _, action in
 			switch action {
 			case .initialise:
-				return .none
+				return .run { _ in
+					try await print(apodClient.getAPOD())
+				}
 			}
 		}
 	}
