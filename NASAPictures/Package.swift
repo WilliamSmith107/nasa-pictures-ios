@@ -16,7 +16,7 @@ let package = Package(
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.20.2"),
 		.package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1"),
-		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.4"),
+//		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.4"),
 	],
     targets: [
         .target(

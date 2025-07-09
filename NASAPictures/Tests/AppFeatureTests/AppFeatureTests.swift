@@ -1,6 +1,19 @@
+//
+//  AppFeatureTests.swift
+//  AppFeatureTests
+//
+//  Created by William Smith on 09/07/2025.
+//
+
 import Testing
+import ComposableArchitecture
 @testable import AppFeature
 
-@Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@MainActor
+struct AppFeatureTests {
+	@Test func testInitialise() async throws {
+		_ = TestStoreOf<NASAPictures>(initialState: NASAPictures.State()) {
+			NASAPictures()
+		}
+	}
 }

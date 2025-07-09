@@ -5,6 +5,7 @@
 //  Created by William Smith on 09/07/2025.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import AppFeature
 
@@ -12,7 +13,9 @@ import AppFeature
 struct NASAPicturesApp: App {
     var body: some Scene {
         WindowGroup {
-            NASAPicturesView()
+			NASAPicturesView(store: Store(initialState: NASAPictures.State()) {
+				NASAPictures()
+			})
         }
     }
 }
