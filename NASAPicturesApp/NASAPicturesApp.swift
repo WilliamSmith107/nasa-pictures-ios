@@ -1,5 +1,5 @@
 //
-//  NASAPicturesAppApp.swift
+//  NASAPicturesApp.swift
 //  NASAPicturesApp
 //
 //  Created by William Smith on 09/07/2025.
@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct NASAPicturesAppApp: App {
+struct NASAPicturesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Text("NASA Pictures")
         }
     }
 }
