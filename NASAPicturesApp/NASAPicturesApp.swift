@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import AppFeature
 
 @main
 struct NASAPicturesApp: App {
     var body: some Scene {
         WindowGroup {
-            Text("NASA Pictures")
+            NASAPicturesView()
         }
     }
 }

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3DEE704A2E1ED1CA00E1A024 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 3DEE70492E1ED1CA00E1A024 /* AppFeature */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3D1127A12E1ECE6D0058EBEE /* NASAPicturesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NASAPicturesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1127AF2E1ECFAB0058EBEE /* NASAPictures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NASAPictures; sourceTree = "<group>"; };
@@ -24,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DEE704A2E1ED1CA00E1A024 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,6 +40,7 @@
 			children = (
 				3D1127AF2E1ECFAB0058EBEE /* NASAPictures */,
 				3D1127A32E1ECE6D0058EBEE /* NASAPicturesApp */,
+				3D1127C62E1ED1470058EBEE /* Frameworks */,
 				3D1127A22E1ECE6D0058EBEE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +51,13 @@
 				3D1127A12E1ECE6D0058EBEE /* NASAPicturesApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3D1127C62E1ED1470058EBEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -67,6 +80,7 @@
 			);
 			name = NASAPicturesApp;
 			packageProductDependencies = (
+				3DEE70492E1ED1CA00E1A024 /* AppFeature */,
 			);
 			productName = NASAPicturesApp;
 			productReference = 3D1127A12E1ECE6D0058EBEE /* NASAPicturesApp.app */;
@@ -340,6 +354,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3DEE70492E1ED1CA00E1A024 /* AppFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D1127992E1ECE6D0058EBEE /* Project object */;
 }
