@@ -19,7 +19,7 @@ struct APODAPIClient {
 
 	private var session: URLSession
 
-	enum Constants {
+	private enum Constants {
 //		static let path = "https://api.nasa.gov/planetary/apod"
 		static let path = "http://192.168.0.227:8000/v1/apod/"
 		static let apiKey = "DEMO_KEY"
@@ -54,7 +54,7 @@ struct APODAPIClient {
 		}
 	}
 
-	func urlRequest() throws -> URLRequest {
+	private func urlRequest() throws -> URLRequest {
 		guard var urlComponents = URLComponents(string: Constants.path) else {
 			throw APODAPIClientError.invalidURL
 		}

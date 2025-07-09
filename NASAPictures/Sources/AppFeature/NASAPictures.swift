@@ -13,11 +13,19 @@ import APODClientLive
 public struct NASAPictures: Sendable {
 	@ObservableState
 	public struct State: Equatable {
-		public init() {}
+		public var imageURL: URL?
+
+		public init(
+			imageURL: URL? = nil
+		) {
+			self.imageURL = imageURL
+		}
 	}
 
 	public enum Action {
 		case initialise
+
+		case assignImageURL(String)
 	}
 
 	@Dependency(\.apodClient) var apodClient
@@ -25,12 +33,17 @@ public struct NASAPictures: Sendable {
 	public init() {}
 
 	public var body: some ReducerOf<Self> {
-		Reduce { _, action in
+		Reduce { state, action in
 			switch action {
 			case .initialise:
-				return .run { _ in
-					try await print(apodClient.getAPOD())
+				return .run { send in
+					let imageURLString = try await apodClient.getAPOD().url
+					await send(.assignImageURL(imageURLString))
 				}
+
+			case let .assignImageURL(imageURLString):
+				state.imageURL = URL(string: imageURLString)
+				return .none
 			}
 		}
 	}
