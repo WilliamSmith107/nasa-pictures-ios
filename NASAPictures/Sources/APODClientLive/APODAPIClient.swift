@@ -20,8 +20,7 @@ struct APODAPIClient {
 	private var session: URLSession
 
 	private enum Constants {
-//		static let path = "https://api.nasa.gov/planetary/apod"
-		static let path = "http://192.168.0.227:8000/v1/apod/"
+		static let path = "https://api.nasa.gov/planetary/apod"
 		static let apiKey = "DEMO_KEY"
 		static let get = "GET"
 	}
@@ -45,6 +44,7 @@ struct APODAPIClient {
 
 			do {
 				let decodedAPOD = try JSONDecoder().decode(APOD.self, from: data)
+				print(decodedAPOD)
 				return decodedAPOD
 			} catch {
 				throw APODAPIClientError.jsonDecoding(error)
@@ -59,9 +59,9 @@ struct APODAPIClient {
 			throw APODAPIClientError.invalidURL
 		}
 
-//		urlComponents.queryItems = [
-//			URLQueryItem(name: "api_key", value: Constants.apiKey)
-//		]
+		urlComponents.queryItems = [
+			URLQueryItem(name: "api_key", value: Constants.apiKey)
+		]
 
 		guard let url = urlComponents.url else {
 			throw APODAPIClientError.invalidURL
