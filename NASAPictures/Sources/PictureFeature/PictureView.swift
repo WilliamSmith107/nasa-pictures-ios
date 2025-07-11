@@ -16,12 +16,43 @@ public struct PictureView: View {
 	}
 
 	public var body: some View {
-		AsyncImage(url: store.imageURL)
-        Text("PictureView")
-			.task {
-				store.send(.initialise)
+		VStack(spacing: 16) {
+			if let response = store.response {
+				detailsSection(response: response)
+
+				imageSection(response: response)
 			}
+		}
+		.padding(.horizontal, 24)
+		.task {
+			store.send(.initialise)
+		}
     }
+
+	public func detailsSection(response: Picture.State.APODResponse) -> some View {
+		VStack(spacing: 8) {
+			Text(response.title)
+
+			Text(response.explanation)
+
+			Text(response.date)
+		}
+	}
+
+	public func imageSection(response: Picture.State.APODResponse) -> some View {
+		VStack(alignment: .center, spacing: 8) {
+			AsyncImage(url: response.url) { image in
+				image
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+			} placeholder: {
+				ProgressView()
+			}
+			.frame(maxWidth: .infinity)
+
+			Text(response.copyright ?? "")
+		}
+	}
 }
 
 #Preview {

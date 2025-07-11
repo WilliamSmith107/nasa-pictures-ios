@@ -7,25 +7,44 @@
 
 import ComposableArchitecture
 import Foundation
+import SharedModels
 import APODClientLive
 
 @Reducer
 public struct Picture: Sendable {
 	@ObservableState
 	public struct State: Equatable {
-		public var imageURL: URL?
+		public struct APODResponse: Equatable {
+			public let copyright: String?
+			public let date: String
+			public let explanation: String
+			public let title: String
+			public let url: URL?
 
-		public init(
-			imageURL: URL? = nil
-		) {
-			self.imageURL = imageURL
+			public init(response: APOD) {
+				self.copyright = response.copyright
+				self.date = response.date
+				self.explanation = response.explanation.replacingOccurrences(
+					of: "\\.(\\s*)",
+					with: ".\n\n",
+					options: .regularExpression
+				)
+				self.title = response.title
+				self.url = URL(string: response.url) ?? nil
+			}
+		}
+
+		public var response: APODResponse?
+
+		public init(response: APODResponse? = nil) {
+			self.response = response
 		}
 	}
 
 	public enum Action {
 		case initialise
 
-		case assignImageURL(String)
+		case assignResponse(APOD)
 	}
 
 	@Dependency(\.apodClient) var apodClient
@@ -37,12 +56,12 @@ public struct Picture: Sendable {
 			switch action {
 			case .initialise:
 				return .run { send in
-					let imageURLString = try await apodClient.getAPOD().url
-					await send(.assignImageURL(imageURLString))
+					let apodResponse = try await apodClient.getAPOD()
+					await send(.assignResponse(apodResponse))
 				}
 
-			case let .assignImageURL(imageURLString):
-				state.imageURL = URL(string: imageURLString)
+			case let .assignResponse(apodResponse):
+				state.response = .init(response: apodResponse)
 				return .none
 			}
 		}
