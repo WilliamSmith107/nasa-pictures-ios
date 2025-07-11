@@ -16,6 +16,7 @@ public struct NASAPicturesView: View {
 	}
 
 	public var body: some View {
+		AsyncImage(url: store.imageURL)
         Text("NASAPicturesView")
 			.task {
 				store.send(.initialise)

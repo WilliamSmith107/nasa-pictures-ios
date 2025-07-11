@@ -12,6 +12,9 @@ let package = Package(
 	],
     products: [
         .library("AppFeature"),
+        .library("APODClient"),
+        .library("APODClientLive"),
+        .library("SharedModels"),
     ],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.20.2"),
@@ -19,16 +22,47 @@ let package = Package(
 //		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.4"),
 	],
     targets: [
+		// AppFeature
         .target(
             name: "AppFeature",
 			dependencies: [
 				.composableArchitecture,
+				.apodClientLive,
 			]
 		),
         .testTarget(
             name: "AppFeatureTests",
             dependencies: ["AppFeature"]
         ),
+
+		// APODClient
+		.target(
+            name: "APODClient",
+			dependencies: [
+				.composableArchitecture,
+				.sharedModels,
+			]
+		),
+//        .testTarget(
+//            name: "APODClientTests",
+//            dependencies: ["APODClient"]
+//        ),
+
+		// APODClientLive
+			.target(
+				name: "APODClientLive",
+				dependencies: [
+					.composableArchitecture,
+					.sharedModels,
+					.apodClient,
+				]
+			),
+
+		// SharedModels
+		.target(
+			name: "SharedModels",
+			dependencies: []
+		),
     ]
 )
 
@@ -43,6 +77,9 @@ extension Target.Dependency {
 	// static var snapshotTesting: Self { .product(name: "SnapshotTesting", package: "swift-snapshot-testing") }
 
 	static var appFeature: Self { "AppFeature" }
+	static var apodClient: Self { "APODClient" }
+	static var apodClientLive: Self { "APODClientLive" }
+	static var sharedModels: Self { "SharedModels" }
 }
 
 for target in package.targets {
