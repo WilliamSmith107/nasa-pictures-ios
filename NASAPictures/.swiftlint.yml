@@ -1,0 +1,16 @@
+# Configurations
+nesting:
+  type_level:
+    warning: 3
+    error: 6
+  function_level:
+    warning: 5
+    error: 10
+identifier_name:
+  excluded:
+    - db
+    - id
+function_body_length: 70
+line_length:
+  excluded:
+    - Sources/APODClientLive/APODMockResponse.swift
