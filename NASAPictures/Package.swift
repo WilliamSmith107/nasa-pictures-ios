@@ -14,6 +14,7 @@ let package = Package(
         .library("AppFeature"),
         .library("APODClient"),
         .library("APODClientLive"),
+        .library("PictureFeature"),
         .library("SharedModels"),
     ],
 	dependencies: [
@@ -27,7 +28,6 @@ let package = Package(
             name: "AppFeature",
 			dependencies: [
 				.composableArchitecture,
-				.apodClientLive,
 			]
 		),
         .testTarget(
@@ -43,20 +43,30 @@ let package = Package(
 				.sharedModels,
 			]
 		),
-//        .testTarget(
-//            name: "APODClientTests",
-//            dependencies: ["APODClient"]
-//        ),
 
 		// APODClientLive
-			.target(
-				name: "APODClientLive",
-				dependencies: [
-					.composableArchitecture,
-					.sharedModels,
-					.apodClient,
-				]
-			),
+		.target(
+			name: "APODClientLive",
+			dependencies: [
+				.composableArchitecture,
+				.sharedModels,
+				.apodClient,
+			]
+		),
+
+		// PictureFeature
+		.target(
+			name: "PictureFeature",
+			dependencies: [
+				.composableArchitecture,
+				.sharedModels,
+				.apodClientLive,
+			]
+		),
+		.testTarget(
+			name: "PictureFeatureTests",
+			dependencies: ["PictureFeature"]
+		),
 
 		// SharedModels
 		.target(
@@ -79,6 +89,7 @@ extension Target.Dependency {
 	static var appFeature: Self { "AppFeature" }
 	static var apodClient: Self { "APODClient" }
 	static var apodClientLive: Self { "APODClientLive" }
+	static var pictureFeature: Self { "PictureFeature" }
 	static var sharedModels: Self { "SharedModels" }
 }
 
