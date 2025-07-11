@@ -13,4 +13,4 @@ identifier_name:
 function_body_length: 70
 line_length:
   excluded:
-    - Sources/SharedModels/APOD+Mock.swift
+    - Sources/SharedModels/APODMock.swift
