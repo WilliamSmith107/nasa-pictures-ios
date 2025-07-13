@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import CommonUI
 
 public struct PictureView: View {
 	private let store: StoreOf<Picture>
@@ -46,7 +47,10 @@ public struct PictureView: View {
 					.resizable()
 					.aspectRatio(contentMode: .fit)
 			} placeholder: {
-				ProgressView()
+				RoundedRectangle(cornerRadius: 24)
+					.foregroundStyle(.clear)
+					.frame(width: 300, height: 300)
+					.shimmer()
 			}
 			.frame(maxWidth: .infinity)
 
