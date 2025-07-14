@@ -9,6 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 import CommonUI
 import Utilities
+import SharedAssets
 
 public struct PictureView: View {
 	@State private var imageLoaded: Bool = false
@@ -36,7 +37,11 @@ public struct PictureView: View {
 				} animation: { phase in
 					phase.animation
 				}
+			} else if let error = store.error {
+				errorSection(error: error)
+					.padding(.top, 128)
 			}
+
 			Spacer()
 		}
 		.padding(.horizontal, 24)
@@ -91,6 +96,19 @@ public struct PictureView: View {
 			}
 		}
 		.offset(y: phase == .imageAppear || phase == .titleAppear ? 200 : 0)
+	}
+
+	func errorSection(error: String) -> some View {
+		VStack(spacing: 16) {
+			Image.iconError
+				.resizable()
+				.frame(width: 64, height: 64)
+				.foregroundStyle(.red)
+
+			Text("Error: \(error)")
+				.foregroundStyle(.red)
+				.multilineTextAlignment(.leading)
+		}
 	}
 
 	enum ResponseAnimation: CaseIterable {

@@ -1,4 +1,7 @@
 # Configurations
+excluded:
+  - Sources/SharedModels/APODMock.swift
+  - Sources/Utilities/StoppingPhaseAnimator.swift
 nesting:
   type_level:
     warning: 3
@@ -11,7 +14,3 @@ identifier_name:
     - db
     - id
 function_body_length: 70
-line_length:
-  excluded:
-    - Sources/SharedModels/APODMock.swift
-    - Sources/Utilities/**

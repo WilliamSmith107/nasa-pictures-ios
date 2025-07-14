@@ -9,19 +9,11 @@ import Foundation
 import SharedModels
 
 struct APODAPIClient {
-	enum APODAPIClientError: Error {
-		case invalidURL
-		case jsonDecoding(Error)
-		case badResponse(statusCode: Int)
-		case network(Error)
-		case unknown
-	}
-
 	private var session: URLSession
 
 	private enum Constants {
 		static let path = "https://api.nasa.gov/planetary/apod"
-		static let apiKey = "DEMO_KEY"
+		static let apiKey = ""
 		static let get = "GET"
 	}
 
@@ -44,11 +36,12 @@ struct APODAPIClient {
 
 			do {
 				let decodedAPOD = try JSONDecoder().decode(APOD.self, from: data)
-				print(decodedAPOD)
 				return decodedAPOD
 			} catch {
 				throw APODAPIClientError.jsonDecoding(error)
 			}
+		} catch let error as APODAPIClientError {
+			throw error
 		} catch {
 			throw APODAPIClientError.network(error)
 		}

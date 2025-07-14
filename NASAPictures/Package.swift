@@ -16,6 +16,7 @@ let package = Package(
         .library("APODClientLive"),
         .library("CommonUI"),
         .library("PictureFeature"),
+        .library("SharedAssets"),
         .library("SharedModels"),
         .library("Utilities"),
     ],
@@ -52,6 +53,7 @@ let package = Package(
 			name: "APODClientLive",
 			dependencies: [
 				.composableArchitecture,
+				.sharedAssets,
 				.sharedModels,
 				.apodClient,
 			]
@@ -72,11 +74,18 @@ let package = Package(
 				.apodClientLive,
 				.commonUI,
 				.utilities,
+				.sharedAssets,
 			]
 		),
 		.testTarget(
 			name: "PictureFeatureTests",
 			dependencies: ["PictureFeature"]
+		),
+
+		// SharedAssets
+		.target(
+			name: "SharedAssets",
+			dependencies: []
 		),
 
 		// SharedModels
@@ -108,6 +117,7 @@ extension Target.Dependency {
 	static var apodClientLive: Self { "APODClientLive" }
 	static var commonUI: Self { "CommonUI" }
 	static var pictureFeature: Self { "PictureFeature" }
+	static var sharedAssets: Self { "SharedAssets" }
 	static var sharedModels: Self { "SharedModels" }
 	static var utilities: Self { "Utilities" }
 }
