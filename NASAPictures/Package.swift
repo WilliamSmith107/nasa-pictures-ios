@@ -17,6 +17,7 @@ let package = Package(
         .library("CommonUI"),
         .library("PictureFeature"),
         .library("SharedModels"),
+        .library("Utilities"),
     ],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.20.2"),
@@ -68,7 +69,8 @@ let package = Package(
 				.composableArchitecture,
 				.sharedModels,
 				.apodClientLive,
-				.commonUI
+				.commonUI,
+				.utilities,
 			]
 		),
 		.testTarget(
@@ -79,6 +81,12 @@ let package = Package(
 		// SharedModels
 		.target(
 			name: "SharedModels",
+			dependencies: []
+		),
+
+		// Utilities
+		.target(
+			name: "Utilities",
 			dependencies: []
 		),
     ]
@@ -100,6 +108,7 @@ extension Target.Dependency {
 	static var commonUI: Self { "CommonUI" }
 	static var pictureFeature: Self { "PictureFeature" }
 	static var sharedModels: Self { "SharedModels" }
+	static var utilities: Self { "Utilities" }
 }
 
 for target in package.targets {
