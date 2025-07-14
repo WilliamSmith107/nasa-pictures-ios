@@ -30,7 +30,7 @@ public struct Picture: Sendable {
 					options: .regularExpression
 				)
 				self.title = response.title
-				self.url = URL(string: response.url) ?? nil
+				self.url = URL(string: response.url)
 			}
 		}
 

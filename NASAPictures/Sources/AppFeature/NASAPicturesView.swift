@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import SwiftUI
 import PictureFeature
+import SharedAssets
 
 public struct NASAPicturesView: View {
 	@State private var splashAnimated = false
@@ -37,9 +38,15 @@ public struct NASAPicturesView: View {
     }
 
 	private var splashView: some View {
-		Text("Splash")
-			.font(.title)
-			.scaleEffect(splashAnimated ? 1.5 : 1.0)
+		VStack(spacing: 64) {
+			Image.iconRocket
+				.resizable()
+				.frame(width: 100, height: 100)
+				.scaleEffect(splashAnimated ? 1.5 : 1.0)
+
+			Text("NASA Pictures")
+				.font(.title)
+		}
 	}
 
 	private func runSplashAnimation() async {
