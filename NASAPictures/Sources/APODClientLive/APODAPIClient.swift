@@ -9,14 +9,6 @@ import Foundation
 import SharedModels
 
 struct APODAPIClient {
-	enum APODAPIClientError: Error {
-		case invalidURL
-		case jsonDecoding(Error)
-		case badResponse(statusCode: Int)
-		case network(Error)
-		case unknown
-	}
-
 	private var session: URLSession
 
 	private enum Constants {
@@ -48,6 +40,8 @@ struct APODAPIClient {
 			} catch {
 				throw APODAPIClientError.jsonDecoding(error)
 			}
+		} catch let error as APODAPIClientError {
+			throw error
 		} catch {
 			throw APODAPIClientError.network(error)
 		}

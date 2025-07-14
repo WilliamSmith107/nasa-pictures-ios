@@ -21,7 +21,7 @@ public struct Picture: Sendable {
 			public let title: String
 			public let url: URL?
 
-			public init(response: APOD) {
+			public init(_ response: APOD) {
 				self.copyright = response.copyright
 				self.date = response.date
 				self.explanation = response.explanation.replacingOccurrences(
@@ -35,9 +35,14 @@ public struct Picture: Sendable {
 		}
 
 		public var response: APODResponse?
+		public var error: String?
 
-		public init(response: APODResponse? = nil) {
+		public init(
+			response: APODResponse? = nil,
+			error: String? = nil
+		) {
 			self.response = response
+			self.error = error
 		}
 	}
 
@@ -45,6 +50,7 @@ public struct Picture: Sendable {
 		case initialise
 
 		case assignResponse(APOD)
+		case assignError(String)
 	}
 
 	@Dependency(\.apodClient) var apodClient
@@ -56,12 +62,20 @@ public struct Picture: Sendable {
 			switch action {
 			case .initialise:
 				return .run { send in
-					let apodResponse = try await apodClient.getAPOD()
-					await send(.assignResponse(apodResponse))
+					do {
+						let apodResponse = try await apodClient.getAPOD()
+						await send(.assignResponse(apodResponse))
+					} catch let error as APODAPIClientError {
+						await send(.assignError(error.localizedDescription))
+					}
 				}
 
-			case let .assignResponse(apodResponse):
-				state.response = .init(response: apodResponse)
+			case let .assignResponse(response):
+				state.response = .init(response)
+				return .none
+
+			case let .assignError(error):
+				state.error = error
 				return .none
 			}
 		}

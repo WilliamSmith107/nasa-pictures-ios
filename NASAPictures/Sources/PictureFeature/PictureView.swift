@@ -36,7 +36,12 @@ public struct PictureView: View {
 				} animation: { phase in
 					phase.animation
 				}
+			} else if let error = store.error {
+				Text("Error: \(error)")
+					.foregroundColor(.red)
+					.multilineTextAlignment(.leading)
 			}
+
 			Spacer()
 		}
 		.padding(.horizontal, 24)
