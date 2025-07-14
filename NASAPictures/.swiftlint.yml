@@ -11,7 +11,6 @@ identifier_name:
     - db
     - id
 function_body_length: 70
-line_length:
-  excluded:
-    - Sources/SharedModels/APODMock.swift
-    - Sources/Utilities/**
+excluded:
+  - Sources/SharedModels/APODMock.swift
+  - Sources/Utilities/**
