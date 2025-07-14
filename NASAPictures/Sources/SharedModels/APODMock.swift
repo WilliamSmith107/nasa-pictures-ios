@@ -1,13 +1,13 @@
 //
-//  APODMockResponse.swift
-//  APODClientLive
+//  APODMock.swift
+//  SharedModels
 //
 //  Created by William Smith on 11/07/2025.
 //
 
-import SharedModels
+import Foundation
 
-extension APOD {
+public extension APOD {
 	static var mock: Self {
 		return .init(
 			copyright: nil,

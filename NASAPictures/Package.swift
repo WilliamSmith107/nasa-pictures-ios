@@ -14,7 +14,10 @@ let package = Package(
         .library("AppFeature"),
         .library("APODClient"),
         .library("APODClientLive"),
+        .library("CommonUI"),
+        .library("PictureFeature"),
         .library("SharedModels"),
+        .library("Utilities"),
     ],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.20.2"),
@@ -27,7 +30,7 @@ let package = Package(
             name: "AppFeature",
 			dependencies: [
 				.composableArchitecture,
-				.apodClientLive,
+				.pictureFeature,
 			]
 		),
         .testTarget(
@@ -43,24 +46,48 @@ let package = Package(
 				.sharedModels,
 			]
 		),
-//        .testTarget(
-//            name: "APODClientTests",
-//            dependencies: ["APODClient"]
-//        ),
 
 		// APODClientLive
-			.target(
-				name: "APODClientLive",
-				dependencies: [
-					.composableArchitecture,
-					.sharedModels,
-					.apodClient,
-				]
-			),
+		.target(
+			name: "APODClientLive",
+			dependencies: [
+				.composableArchitecture,
+				.sharedModels,
+				.apodClient,
+			]
+		),
+
+		// CommonUI
+		.target(
+			name: "CommonUI",
+			dependencies: []
+		),
+
+		// PictureFeature
+		.target(
+			name: "PictureFeature",
+			dependencies: [
+				.composableArchitecture,
+				.sharedModels,
+				.apodClientLive,
+				.commonUI,
+				.utilities,
+			]
+		),
+		.testTarget(
+			name: "PictureFeatureTests",
+			dependencies: ["PictureFeature"]
+		),
 
 		// SharedModels
 		.target(
 			name: "SharedModels",
+			dependencies: []
+		),
+
+		// Utilities
+		.target(
+			name: "Utilities",
 			dependencies: []
 		),
     ]
@@ -79,7 +106,10 @@ extension Target.Dependency {
 	static var appFeature: Self { "AppFeature" }
 	static var apodClient: Self { "APODClient" }
 	static var apodClientLive: Self { "APODClientLive" }
+	static var commonUI: Self { "CommonUI" }
+	static var pictureFeature: Self { "PictureFeature" }
 	static var sharedModels: Self { "SharedModels" }
+	static var utilities: Self { "Utilities" }
 }
 
 for target in package.targets {

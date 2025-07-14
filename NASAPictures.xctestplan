@@ -18,6 +18,13 @@
         "identifier" : "AppFeatureTests",
         "name" : "AppFeatureTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:NASAPictures",
+        "identifier" : "PictureFeatureTests",
+        "name" : "PictureFeatureTests"
+      }
     }
   ],
   "version" : 1

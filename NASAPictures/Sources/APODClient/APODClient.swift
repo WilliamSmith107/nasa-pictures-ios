@@ -18,6 +18,12 @@ extension APODClient: TestDependencyKey {
 	public static var testValue: Self {
 		return Self()
 	}
+
+	public static var previewValue: Self {
+		return Self(getAPOD: {
+			APOD.mock
+		})
+	}
 }
 
 extension DependencyValues {

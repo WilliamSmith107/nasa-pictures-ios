@@ -6,45 +6,40 @@
 //
 
 import ComposableArchitecture
-import Foundation
-import APODClientLive
+import SwiftUI
 
 @Reducer
 public struct NASAPictures: Sendable {
 	@ObservableState
 	public struct State: Equatable {
-		public var imageURL: URL?
+		@Presents public var screen: NASAPicturesScreen.State?
 
 		public init(
-			imageURL: URL? = nil
+			screen: NASAPicturesScreen.State = .splashScreen
 		) {
-			self.imageURL = imageURL
+			self.screen = screen
 		}
 	}
 
 	public enum Action {
-		case initialise
+		case splashScreenEnded
 
-		case assignImageURL(String)
+		case screen(PresentationAction<NASAPicturesScreen.Action>)
 	}
-
-	@Dependency(\.apodClient) var apodClient
 
 	public init() {}
 
 	public var body: some ReducerOf<Self> {
 		Reduce { state, action in
 			switch action {
-			case .initialise:
-				return .run { send in
-					let imageURLString = try await apodClient.getAPOD().url
-					await send(.assignImageURL(imageURLString))
-				}
+			case .splashScreenEnded:
+				state.screen = .pictureScreen(.init())
+				return .none
 
-			case let .assignImageURL(imageURLString):
-				state.imageURL = URL(string: imageURLString)
+			case .screen:
 				return .none
 			}
 		}
+		.ifLet(\.$screen, action: \.screen)
 	}
 }
