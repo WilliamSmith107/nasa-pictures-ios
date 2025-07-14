@@ -71,7 +71,7 @@ public struct PictureView: View {
 					.cornerRadius(24)
 					.overlay {
 						if phase == .titleAppear {
-							Color.black
+							Color.gray
 								.overlay(
 									Text(response.title)
 										.font(.title)
@@ -85,6 +85,7 @@ public struct PictureView: View {
 					}
 			default:
 				RoundedRectangle(cornerRadius: 24)
+					.foregroundStyle(.clear)
 					.frame(height: 250)
 					.shimmer()
 			}
@@ -100,7 +101,7 @@ public struct PictureView: View {
 		var animation: Animation {
 			switch self {
 			case .titleAppear:
-					.snappy(duration: 1.0)
+					.snappy(duration: 0.5)
 			case .imageAppear:
 					.easeIn(duration: 2.0)
 			case .detailsAppear:

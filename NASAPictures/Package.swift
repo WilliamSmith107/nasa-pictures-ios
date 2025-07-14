@@ -30,6 +30,7 @@ let package = Package(
             name: "AppFeature",
 			dependencies: [
 				.composableArchitecture,
+				.pictureFeature,
 			]
 		),
         .testTarget(

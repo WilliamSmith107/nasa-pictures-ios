@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ShimmerModifier: ViewModifier {
 	private let gradientColors: [Color] = [
-		.gray.opacity(0.4),
-		.gray.opacity(0.2),
-		.gray.opacity(0.4)
+		.gray.opacity(1),
+		.gray.opacity(0.6),
+		.gray.opacity(1)
 	]
 
 	@State private var startPoint: UnitPoint = .init(x: -1.8, y: -1.2)

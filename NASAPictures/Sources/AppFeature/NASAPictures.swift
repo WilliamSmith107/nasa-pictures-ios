@@ -6,27 +6,40 @@
 //
 
 import ComposableArchitecture
-import Foundation
+import SwiftUI
 
 @Reducer
 public struct NASAPictures: Sendable {
 	@ObservableState
 	public struct State: Equatable {
-		public init() {}
+		@Presents public var screen: NASAPicturesScreen.State?
+
+		public init(
+			screen: NASAPicturesScreen.State = .splashScreen
+		) {
+			self.screen = screen
+		}
 	}
 
 	public enum Action {
-		case initialise
+		case splashScreenEnded
+
+		case screen(PresentationAction<NASAPicturesScreen.Action>)
 	}
 
 	public init() {}
 
 	public var body: some ReducerOf<Self> {
-		Reduce { _, action in
+		Reduce { state, action in
 			switch action {
-			case .initialise:
+			case .splashScreenEnded:
+				state.screen = .pictureScreen(.init())
+				return .none
+
+			case .screen:
 				return .none
 			}
 		}
+		.ifLet(\.$screen, action: \.screen)
 	}
 }
