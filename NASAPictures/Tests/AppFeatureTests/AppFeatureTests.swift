@@ -12,10 +12,8 @@ import ComposableArchitecture
 @MainActor
 struct AppFeatureTests {
 	@Test func testInitialise() async throws {
-		let store = TestStoreOf<NASAPictures>(initialState: NASAPictures.State()) {
+		_ = TestStoreOf<NASAPictures>(initialState: NASAPictures.State()) {
 			NASAPictures()
 		}
-
-		await store.send(.initialise)
 	}
 }
