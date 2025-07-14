@@ -21,7 +21,7 @@ struct APODAPIClient {
 
 	private enum Constants {
 		static let path = "https://api.nasa.gov/planetary/apod"
-		static let apiKey = "DEMO_KEY"
+		static let apiKey = ""
 		static let get = "GET"
 	}
 
@@ -44,7 +44,6 @@ struct APODAPIClient {
 
 			do {
 				let decodedAPOD = try JSONDecoder().decode(APOD.self, from: data)
-				print(decodedAPOD)
 				return decodedAPOD
 			} catch {
 				throw APODAPIClientError.jsonDecoding(error)
