@@ -23,7 +23,7 @@ let package = Package(
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.20.2"),
 		.package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1"),
-//		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.4"),
+		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.4"),
 	],
     targets: [
 		// AppFeature
@@ -79,7 +79,10 @@ let package = Package(
 		),
 		.testTarget(
 			name: "PictureFeatureTests",
-			dependencies: ["PictureFeature"]
+			dependencies: [
+				"PictureFeature",
+				.snapshotTesting,
+			]
 		),
 
 		// SharedAssets
@@ -110,7 +113,7 @@ extension Product {
 
 extension Target.Dependency {
 	static var composableArchitecture: Self { .product(name: "ComposableArchitecture", package: "swift-composable-architecture") }
-	// static var snapshotTesting: Self { .product(name: "SnapshotTesting", package: "swift-snapshot-testing") }
+	static var snapshotTesting: Self { .product(name: "SnapshotTesting", package: "swift-snapshot-testing") }
 
 	static var appFeature: Self { "AppFeature" }
 	static var apodClient: Self { "APODClient" }
